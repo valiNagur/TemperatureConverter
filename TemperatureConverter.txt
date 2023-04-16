@@ -1,0 +1,126 @@
+XML :
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/png"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONVERTER"
+        android:layout_marginTop="50dp"
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        android:id="@+id/tv1"
+        android:layout_centerHorizontal="true"
+        tools:ignore="InvalidId" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:layout_alignLeft="@+id/tv1"
+        android:layout_marginTop="30dp"
+        android:id="@+id/et1"
+        android:hint="Enter Celsius Temperature"
+        android:textColor="@color/black"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/et1"
+        android:layout_marginTop="30dp"
+        android:id="@+id/ll1"
+        android:layout_alignLeft="@id/et1"
+        tools:ignore="InvalidId">
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/bt1"
+            android:layout_marginLeft="30dp"
+            android:src="@android:drawable/stat_sys_download_done"
+            />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/bt2"
+            android:src="@android:drawable/stat_sys_upload_done"
+            />
+    </LinearLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll1"
+        android:layout_alignLeft="@+id/tv1"
+        android:layout_marginTop="30dp"
+        android:id="@+id/et2"
+        android:hint="Enter Farenheit Temperature"
+        android:textColor="@color/black"
+        tools:ignore="NotSibling,UnknownId" />
+
+
+</RelativeLayout>
+
+
+JAVA :
+
+package com.example.temparatureconverter;
+
+import static java.lang.Float.parseFloat;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Switch;
+
+public class MainActivity extends AppCompatActivity {
+    Switch s1;
+    ImageButton b1,b2;
+    EditText et1,et2;
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        b1=findViewById(R.id.bt1);
+        b2=findViewById(R.id.bt2);
+        et1=findViewById(R.id.et1);
+        et2=findViewById(R.id.et2);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(et1.getText().toString()!=null) {
+                    Double x = new Double(Double.parseDouble(et1.getText().toString()));
+                    et1.setText("");
+                    x = (x * 9 / 5) + 32;
+                    et2.setText(String.valueOf(x));
+                }
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(et2.getText().toString()!=null) {
+                    Double x = new Double(Double.parseDouble(et2.getText().toString()));
+                    et2.setText("");
+                    x = (x-32)*5/9;
+                    et1.setText(String.valueOf(x));
+                }
+            }
+        });
+        }
+
+}
